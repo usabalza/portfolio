@@ -210,7 +210,22 @@ Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI.
                         <i data-lucide="github" class="w-5 h-5"></i> GitHub
                     </a>
                     <a href="https://linkedin.com/in/uziel-sabalza-a535b6214" target="_blank" class="flex items-center gap-2 text-zinc-600 hover:text-apple-accent dark:text-zinc-400 dark:hover:text-apple-accent transition font-medium">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn
+                        <svg 
+  xmlns="http://w3.org" 
+  width="24" 
+  height="24" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="currentColor" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class="lucide lucide-linkedin"
+>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect width="4" height="12" x="2" y="9"/>
+  <circle cx="4" cy="4" r="2"/>
+</svg> LinkedIn
                     </a>
                 </div>
             </section>
@@ -334,20 +349,6 @@ themeToggleBtn.addEventListener('click', () => {
             //updateProjectImages('dark');
             updateImagesForTheme(true)
             updateLanguage('ES');
-
-            window.addEventListener('DOMContentLoaded', () => {
-    const isDarkInitial = htmlElement.classList.contains('dark');
-    if(isDarkInitial) {
-        themeIcon.className = 'fas fa-moon text-amber-400'; // O cambia esto si también deseas usar Lucide en el Nav
-    } else {
-        themeIcon.className = 'fas fa-sun text-amber-500';
-    }
-    updateImagesForTheme(isDarkInitial);
-    updateLanguage();
-    
-    // NUEVO: Inicializa los iconos de Lucide
-    lucide.createIcons();
-});
         </script>
     </body>
 </html>
