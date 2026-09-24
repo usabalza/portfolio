@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS Developer Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0071e3;
+            --nav-bg: rgba(245, 245, 247, 0.8);
+            --border-color: #d2d2d7;
+            --tag-bg: #f5f5f7;
+            --tag-text: #1d1d1f;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #000000;
+            --card-bg: #1d1d1f;
+            --text-main: #f5f5f7;
+            --text-secondary: #86868b;
+            --accent-color: #2997ff;
+            --nav-bg: rgba(0, 0, 0, 0.8);
+            --border-color: #424245;
+            --tag-bg: #323236;
+            --tag-text: #f5f5f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-top: 44px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9994;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 20px;
+            gap: 15px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .btn-toggle:hover {
+            background-color: var(--tag-bg);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1000px;
+            margin: 80px auto 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: var(--text-main);
+        }
+
+        /* Tech Tags Hero */
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Section */
+        .section-title {
+            max-width: 1000px;
+            margin: 60px auto 20px auto;
+            padding: 0 20px;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .projects-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-content h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .card-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact {
+            max-width: 1000px;
+            margin: 60px auto 100px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero .subtitle { font-size: 20px; }
+            .section-title { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="controls">
+            <button class="btn-toggle" id="lang-toggle">English</button>
+            <button class="btn-toggle" id="theme-toggle">🌙 Dark</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 id="hero-title">Hola, soy un Desarrollador iOS</h1>
+        <div class="subtitle" id="hero-subtitle">Construyendo experiencias nativas elegantes y de alto rendimiento.</div>
+        <p id="hero-desc">Me dedico a diseñar y programar aplicaciones móviles intuitivas para el ecosistema Apple, priorizando la arquitectura limpia, transiciones fluidas y un diseño centrado en el usuario.</p>
+        <div class="tech-stack">
+            <span class="tag">Swift</span>
+            <span class="tag">SwiftUI</span>
+            <span class="tag">UIKit</span>
+            <span class="tag">Combine</span>
+            <span class="tag">CoreData</span>
+            <span class="tag">SwiftData</span>
+            <span class="tag">URLSession</span>
+            <span class="tag">Async/await</span>
+            <span class="tag">MVVM</span>
+            <span class="tag">VIPER</span>
+            <span class="tag">Git</span>
+        </div>
+    </header>
+
+    <h2 class="section-title" id="projects-title">Mis Proyectos</h2>
+    <main class="projects-grid">
+        <!-- Proyecto 1 -->
+        <div class="card">
+            <div class="card-content">
+                <h3 id="p1-title">WalletDemo</h3>
+                <p id="p1-desc">Una aplicación que simula un ecosistema de billetera digital totalmente local. El proyecto se desarrolló utilizando un enfoque altamente modular y desacoplado, eliminando las dependencias de API externas mediante el uso de SwiftData para todo el almacenamiento de datos persistentes y la gestión de relaciones locales.</p>
+                <div class="tags">
+                    <span class="tag">SwiftUI</span>
+                    <span class="tag">MVVM</span>
+                    <span class="tag">Combine</span>
+                    <span class="tag">Async/await</span>
+                    <span class="tag">SwiftData</span>
+                    <span class="tag">AVFoundation</span>
+                    <span class="tag">SwiftCharts</span>
+                </div>
+            </div>
+            <a href="https://github.com/usabalza/WalletDemo" target="_blank" class="card-link" id="p1-link">Ver Repositorio &rarr;</a>
+        </div>
+
+        <!-- Proyecto 2 -->
+        <div class="card">
+            <div class="card-content">
+                <h3 id="p2-title">CryptoTracker</h3>
+                <p id="p2-desc">Una aplicación diseñada para realizar un seguimiento de las criptomonedas favoritas en tiempo real. El proyecto implementa el monitoreo de carteras en vivo, simulaciones de operaciones locales y una estrategia sólida para gestionar las limitaciones de tasa de solicitudes de la API.</p>
+                <div class="tags">
+                    <span class="tag">SwiftUI</span>
+                    <span class="tag">MVVM</span>
+                    <span class="tag">Combine</span>
+                    <span class="tag">Async/await</span>
+                    <span class="tag">SwiftData</span>
+                    <span class="tag">URLSession</span>
+                    <span class="tag">SwiftCharts</span>
+                </div>
+            </div>
+            <a href="https://github.com/usabalza/CryptoTracker" target="_blank" class="card-link" id="p2-link">Ver Repositorio &rarr;</a>
+        </div>
+
+        <!-- Proyecto 3 -->
+        <div class="card">
+            <div class="card-content">
+                <h3 id="p3-title">SwiftPokeDex</h3>
+                <p id="p3-desc">Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI. Está diseñada bajo estándares de calidad de producción, empleando conceptos avanzados como concurrencia nativa, persistencia local reactiva y un conjunto integral de pruebas automatizadas modernas.</p>
+                <div class="tags">
+                    <span class="tag">SwiftUI</span>
+                    <span class="tag">MVVM</span>
+                    <span class="tag">Combine</span>
+                    <span class="tag">Async/await</span>
+                    <span class="tag">SwiftData</span>
+                    <span class="tag">URLSession</span>
+                    <span class="tag">SwiftCharts</span>
+                </div>
+            </div>
+            <a href="https://github.com/usabalza/SwiftPokeDex" target="_blank" class="card-link" id="p3-link">Ver Repositorio &rarr;</a>
+        </div>
+    </main>
+
+    <section class="contact">
+        <h2 id="contact-title">Contacto</h2>
+        <div class="contact-links">
+            <a href="mailto:uziel.sabalza.dev@gmail.com" target="_blank">Email</a>
+            <a href="https://github.com/usabalza" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/uziel-sabalza-a535b6214" target="_blank">LinkedIn</a>
+        </div>
+    </section>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const langToggle = document.getElementById('lang-toggle');
+        
+        let currentLang = 'es';
+
+        const content = {
+            es: {
+                heroTitle: 'Hola, soy un Desarrollador iOS',
+                heroSubtitle: 'Construyendo experiencias nativas elegantes y de alto rendimiento.',
+                heroDesc: 'Me dedico a diseñar y programar aplicaciones móviles intuitivas para el ecosistema Apple, priorizando la arquitectura limpia, transiciones fluidas y un diseño centrado en el usuario.',
+                projectsTitle: 'Mis Proyectos',
+                contactTitle: 'Contacto',
+                p1Title: 'WalletDemo',
+                p1Desc: 'Una aplicación que simula un ecosistema de billetera digital totalmente local. El proyecto se desarrolló utilizando un enfoque altamente modular y desacoplado, eliminando las dependencias de API externas mediante el uso de SwiftData para todo el almacenamiento de datos persistentes y la gestión de relaciones locales.',
+                p1Link: 'Ver Repositorio →',
+                p2Title: 'CryptoTracker',
+                p2Desc: 'Una aplicación diseñada para realizar un seguimiento de las criptomonedas favoritas en tiempo real. El proyecto implementa el monitoreo de carteras en vivo, simulaciones de operaciones locales y una estrategia sólida para gestionar las limitaciones de tasa de solicitudes de la API.',
+                p2Link: 'Ver Repositorio →',
+                p3Title: 'SwiftPokeDex',
+                p3Desc: 'Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI. Está diseñada bajo estándares de calidad de producción, empleando conceptos avanzados como concurrencia nativa, persistencia local reactiva y un conjunto integral de pruebas automatizadas modernas.',
+                p3Link: 'Ver Repositorio →',
+                langBtn: 'English'
+            },
+            en: {
+                heroTitle: 'Hi, Im a iOS Developer',
+                heroSubtitle: 'Building elegant, high-performance native experiences.',
+                heroDesc: 'I design and develop intuitive mobile applications for the Apple ecosystem, prioritizing clean architecture, smooth transitions, and user-centered design.',
+                projectsTitle: 'My Projects',
+                contactTitle: 'Contact',
+                p1Title: 'WalletDemo',
+                p1Desc: 'Application simulating a fully local digital wallet ecosystem. The project was built using a highly modular and decoupled approach, eliminating external API dependencies by leveraging SwiftData for all persistent data storage and local relationship management.',
+                p1Link: 'View Repository →',
+                p2Title: 'CryptoTracker',
+                p2Desc: 'Application built to track favorite cryptocurrencies in real-time. The project implements live portfolio tracking, local trade simulations, and a robust defense strategy against API rate limiting.',
+                p2Link: 'View Repository →',
+                p3Title: 'SwiftPokeDex',
+                p3Desc: 'Application serving as an interactive Pokédex that consumes the PokeAPI. It is designed to production-grade standards, employing advanced concepts such as native concurrency, reactive local persistence, and a comprehensive suite of modern automated tests.',
+                p3Link: 'View Repository →',
+                langBtn: 'Español'
+            }
+        };
+
+        // Theme Toggle Logic
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙 Dark';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️ Light';
+            }
+        });
+
+        // Language Toggle Logic
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            updateLanguage();
+        });
+
+        function updateLanguage() {
+            const langData = content[currentLang];
+            document.getElementById('hero-title').textContent = langData.heroTitle;
+            document.getElementById('hero-subtitle').textContent = langData.heroSubtitle;
+            document.getElementById('hero-desc').textContent = langData.heroDesc;
+            document.getElementById('projects-title').textContent = langData.projectsTitle;
+            document.getElementById('contact-title').textContent = langData.contactTitle;
+            
+            document.getElementById('p1-title').textContent = langData.p1Title;
+            document.getElementById('p1-desc').textContent = langData.p1Desc;
+            document.getElementById('p1-link').textContent = langData.p1Link;
+
+            document.getElementById('p2-title').textContent = langData.p2Title;
+            document.getElementById('p2-desc').textContent = langData.p2Desc;
+            document.getElementById('p2-link').textContent = langData.p2Link;
+
+            document.getElementById('p3-title').textContent = langData.p3Title;
+            document.getElementById('p3-desc').textContent = langData.p3Desc;
+            document.getElementById('p3-link').textContent = langData.p3Link;
+
+            langToggle.textContent = langData.langBtn;
+            document.documentElement.lang = currentLang;
+        }
+    </script>
+</body>
+</html>
