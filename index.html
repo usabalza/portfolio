@@ -1,446 +1,306 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
     <head>
         <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>iOS Developer Portfolio</title>
+                <!-- Tailwind CSS para estilizado rápido y limpio estilo Apple -->
+                <script src="https://cdn.tailwindcss.com"></script>
+                <script>
+                    tailwind.config = {
+                        darkMode: 'class',
+                        theme: {
+                            extend: {
+                                colors: {
+                                    apple: {
+                                        darkBg: '#000000',
+                                        darkCard: '#1c1c1e',
+                                        lightBg: '#f5f5f7',
+                                        lightCard: '#ffffff',
+                                        accent: '#0071e3'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </script>
+                <!-- Iconos SF Symbols alternativos (Lucide Icons) -->
+                <script src="https://unpkg.com/lucide@latest"></script>
                 <style>
-                    :root {
-                        --bg-color: #f5f5f7;
-                        --card-bg: #ffffff;
-                        --text-main: #1d1d1f;
-                        --text-secondary: #86868b;
-                        --accent-color: #0071e3;
-                        --nav-bg: rgba(245, 245, 247, 0.8);
-                        --border-color: #d2d2d7;
-                        --tag-bg: #f5f5f7;
-                        --tag-text: #1d1d1f;
-                    }
-                    
-                    [data-theme="dark"] {
-                        --bg-color: #000000;
-                        --card-bg: #1d1d1f;
-                        --text-main: #f5f5f7;
-                        --text-secondary: #86868b;
-                        --accent-color: #2997ff;
-                        --nav-bg: rgba(0, 0, 0, 0.8);
-                        --border-color: #424245;
-                        --tag-bg: #323236;
-                        --tag-text: #f5f5f7;
-                    }
-                    
-                    * {
-                        box-sizing: border-box;
-                        margin: 0;
-                        padding: 0;
+                    body {
                         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                         transition: background-color 0.3s, color 0.3s;
                     }
-                    
-                    body {
-                        background-color: var(--bg-color);
-                        color: var(--text-main);
-                        padding-top: 44px;
+                    .project-card img {
+                        transition: transform 0.5s cubic-bezier(0.15, 0.83, 0.66, 1);
                     }
-                    
-                    /* Navigation */
-                    nav {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        height: 44px;
-                        background-color: var(--nav-bg);
-                        backdrop-filter: blur(20px);
-                        -webkit-backdrop-filter: blur(20px);
-                        z-index: 9994;
-                        border-bottom: 1px solid var(--border-color);
-                        display: flex;
-                        justify-content: flex-end;
-                        align-items: center;
-                        padding: 0 20px;
-                        gap: 15px;
-                    }
-                    
-                    .controls {
-                        display: flex;
-                        align-items: center;
-                        gap: 10px;
-                    }
-                    
-                    .btn-toggle {
-                        background: none;
-                        border: 1px solid var(--border-color);
-                        color: var(--text-main);
-                        padding: 4px 10px;
-                        border-radius: 12px;
-                        cursor: pointer;
-                        font-size: 12px;
-                        font-weight: 500;
-                    }
-                    
-                    .btn-toggle:hover {
-                        background-color: var(--tag-bg);
-                    }
-                    
-                    /* Hero Section */
-                    .hero {
-                        max-width: 1000px;
-                        margin: 80px auto 40px auto;
-                        padding: 0 20px;
-                        text-align: center;
-                    }
-                    
-                    .hero h1 {
-                        font-size: 48px;
-                        font-weight: 700;
-                        letter-spacing: -0.5px;
-                        margin-bottom: 10px;
-                    }
-                    
-                    .hero .subtitle {
-                        font-size: 24px;
-                        color: var(--text-secondary);
-                        font-weight: 400;
-                        margin-bottom: 20px;
-                    }
-                    
-                    .hero p {
-                        font-size: 18px;
-                        line-height: 1.5;
-                        max-width: 600px;
-                        margin: 0 auto 30px auto;
-                        color: var(--text-main);
-                    }
-                    
-                    /* Tech Tags Hero */
-                    .tech-stack {
-                        display: flex;
-                        justify-content: center;
-                        gap: 8px;
-                        flex-wrap: wrap;
-                        max-width: 600px;
-                        margin: 0 auto;
-                    }
-                    
-                    /* Grid Section */
-                    .section-title {
-                        max-width: 1000px;
-                        margin: 60px auto 20px auto;
-                        padding: 0 20px;
-                        font-size: 32px;
-                        font-weight: 600;
-                    }
-                    
-                    .projects-grid {
-                        max-width: 1000px;
-                        margin: 0 auto;
-                        display: grid;
-                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                        gap: 24px;
-                        padding: 0 20px;
-                    }
-                    
-                    .card {
-                        background-color: var(--card-bg);
-                        border-radius: 18px;
-                        padding: 30px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        min-height: 280px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                    }
-                    
-                    .card-content h3 {
-                        font-size: 22px;
-                        margin-bottom: 12px;
-                        font-weight: 600;
-                    }
-                    
-                    .card-content p {
-                        font-size: 15px;
-                        color: var(--text-secondary);
-                        line-height: 1.4;
-                        margin-bottom: 20px;
-                    }
-                    
-                    .tags {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 6px;
-                        margin-bottom: 20px;
-                    }
-                    
-                    .tag {
-                        background-color: var(--tag-bg);
-                        color: var(--tag-text);
-                        font-size: 12px;
-                        padding: 4px 10px;
-                        border-radius: 8px;
-                        font-weight: 500;
-                    }
-                    
-                    .card-link {
-                        color: var(--accent-color);
-                        text-decoration: none;
-                        font-size: 15px;
-                        font-weight: 500;
-                        display: inline-flex;
-                        align-items: center;
-                    }
-                    
-                    .card-link:hover {
-                        text-decoration: underline;
-                    }
-                    
-                    /* Contact Section */
-                    .contact {
-                        max-width: 1000px;
-                        margin: 60px auto 100px auto;
-                        padding: 0 20px;
-                        text-align: center;
-                    }
-                    
-                    .contact-links {
-                        display: flex;
-                        justify-content: center;
-                        gap: 30px;
-                        margin-top: 20px;
-                        flex-wrap: wrap;
-                    }
-                    
-                    .contact-links a {
-                        color: var(--accent-color);
-                        text-decoration: none;
-                        font-size: 17px;
-                        font-weight: 500;
-                    }
-                    
-                    .contact-links a:hover {
-                        text-decoration: underline;
-                    }
-                    .project-image-container {
-                        width: 100%;
-                        height: 200px;
-                        overflow: hidden; /* Recorta la imagen si sobresale al hacer zoom */
-                        background-color: #1d1d1f; /* Fondo oscuro de Apple mientras carga la imagen */
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    /* 2. Comportamiento de la imagen */
-                    .project-image {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover; /* Ajusta la imagen sin deformarla (mantiene proporción) */
-                        /* Curva de animación suave característica de Apple (cubic-bezier) */
-                        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-                    }
-
-                    /* 3. Efecto interactivo (Zoom al pasar el cursor) */
-                    .card:hover .project-image {
-                        transform: scale(1.05); /* Incrementa el tamaño un 5% al hacer hover en la tarjeta */
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .hero h1 { font-size: 36px; }
-                        .hero .subtitle { font-size: 20px; }
-                        .section-title { font-size: 26px; }
+                    .project-card:hover img {
+                        transform: scale(1.05);
                     }
                 </style>
     </head>
-    <body>
+    <body class="bg-apple-lightBg text-zinc-900 dark:bg-apple-darkBg dark:text-zinc-100 min-h-screen flex flex-col justify-between">
         
-        <nav>
-            <div class="controls">
-                <button class="btn-toggle" id="lang-toggle">English</button>
-                <button class="btn-toggle" id="theme-toggle">🌙 Dark</button>
-            </div>
-        </nav>
-        
-        <header class="hero">
-            <h1 id="hero-title">Hola, soy un Desarrollador iOS</h1>
-            <div class="subtitle" id="hero-subtitle">Construyendo experiencias nativas elegantes y de alto rendimiento.</div>
-            <p id="hero-desc">Me dedico a diseñar y programar aplicaciones móviles intuitivas para el ecosistema Apple, priorizando la arquitectura limpia, transiciones fluidas y un diseño centrado en el usuario.</p>
-            <div class="tech-stack">
-                <span class="tag">Swift</span>
-                <span class="tag">SwiftUI</span>
-                <span class="tag">UIKit</span>
-                <span class="tag">Combine</span>
-                <span class="tag">CoreData</span>
-                <span class="tag">SwiftData</span>
-                <span class="tag">URLSession</span>
-                <span class="tag">Async/await</span>
-                <span class="tag">MVVM</span>
-                <span class="tag">VIPER</span>
-                <span class="tag">Git</span>
+        <!-- Navbar / Header -->
+        <header class="sticky top-0 z-50 backdrop-blur-md bg-white/70 dark:bg-black/70 border-b border-zinc-200 dark:border-zinc-800">
+            <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="font-semibold text-lg tracking-tight flex items-center gap-2">
+                    <i data-lucide="smartphone" class="w-5 h-5 text-apple-accent"></i>
+                    <span>iOS Dev Portfolio</span>
+                </div>
+                
+                <!-- Toggles superiores -->
+                <div class="flex items-center gap-4">
+                    <!-- Idioma Toggle -->
+                    <button id="langToggle" class="px-3 py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 text-xs font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                        EN
+                    </button>
+                    <!-- Tema Toggle -->
+                    <button id="themeToggle" class="p-2 rounded-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                        <i data-lucide="moon" id="themeIcon" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
         </header>
         
-        <h2 class="section-title" id="projects-title">Mis Proyectos</h2>
-        <main class="projects-grid">
-            <!-- Proyecto 1 -->
-            <div class="card">
-                <div class="card-content">
-                    <div class="project-image-container">
-                        <!-- REEMPLAZA LA URL DE LA IMAGEN AQUÍ -->
-                        <img src="https://github.com/user-attachments/assets/3075678e-69bd-45fd-8b9d-df66cee5d194" alt="App 1" class="project-image">
-                    </div>
-                    <h3 id="p1-title">WalletDemo</h3>
-                    <p id="p1-desc">Una aplicación que simula un ecosistema de billetera digital totalmente local. El proyecto se desarrolló utilizando un enfoque altamente modular y desacoplado, eliminando las dependencias de API externas mediante el uso de SwiftData para todo el almacenamiento de datos persistentes y la gestión de relaciones locales.</p>
-                    <div class="tags">
-                        <span class="tag">SwiftUI</span>
-                        <span class="tag">MVVM</span>
-                        <span class="tag">Combine</span>
-                        <span class="tag">Async/await</span>
-                        <span class="tag">SwiftData</span>
-                        <span class="tag">AVFoundation</span>
-                        <span class="tag">SwiftCharts</span>
-                    </div>
-                </div>
-                <a href="https://github.com/usabalza/WalletDemo" target="_blank" class="card-link" id="p1-link">Ver Repositorio &rarr;</a>
-            </div>
+        <!-- Main Content -->
+        <main class="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
             
-            <!-- Proyecto 2 -->
-            <div class="card">
-                <div class="card-content">
-                    <div class="project-image-container">
-                        <!-- REEMPLAZA LA URL DE LA IMAGEN AQUÍ -->
-                        <img src="https://github.com/user-attachments/assets/43d27f75-92b7-4464-be00-48323ffe0d4d" alt="App 2" class="project-image">
-                    </div>
-                    <h3 id="p2-title">CryptoTracker</h3>
-                    <p id="p2-desc">Una aplicación diseñada para realizar un seguimiento de las criptomonedas favoritas en tiempo real. El proyecto implementa el monitoreo de carteras en vivo, simulaciones de operaciones locales y una estrategia sólida para gestionar las limitaciones de tasa de solicitudes de la API.</p>
-                    <div class="tags">
-                        <span class="tag">SwiftUI</span>
-                        <span class="tag">MVVM</span>
-                        <span class="tag">Combine</span>
-                        <span class="tag">Async/await</span>
-                        <span class="tag">SwiftData</span>
-                        <span class="tag">URLSession</span>
-                        <span class="tag">SwiftCharts</span>
+            <!-- Hero / Descripción -->
+            <section class="text-center md:text-left md:flex items-center justify-between gap-8 py-12 border-b border-zinc-200 dark:border-zinc-800">
+                <div class="max-w-2xl">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4" id="heroTitle">
+                        Diseño experiencias nativas e intuitivas para el ecosistema Apple.
+                    </h1>
+                    <p class="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl leading-relaxed mb-6" id="heroDesc">
+                    Soy un desarrollador enfocado en la arquitectura limpia, interfaces fluidas y un rendimiento excepcional en iOS, iPadOS y watchOS.
+                    </p>
+                    <!-- Tecnologías -->
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                        <span class="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm font-medium">Swift</span>
+                        <span class="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm font-medium">SwiftUI</span>
+                        <span class="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm font-medium">UIKit</span>
+                        <span class="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm font-medium">Combine / Async-Await</span>
+                        <span class="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm font-medium">CoreData / SwiftData</span>
                     </div>
                 </div>
-                <a href="https://github.com/usabalza/CryptoTracker" target="_blank" class="card-link" id="p2-link">Ver Repositorio &rarr;</a>
-            </div>
+                <div class="hidden md:block text-zinc-300 dark:text-zinc-800">
+                    <i data-lucide="code-2" class="w-40 h-40"></i>
+                </div>
+            </section>
             
-            <!-- Proyecto 3 -->
-            <div class="card">
-                <div class="card-content">
-                    <div class="project-image-container">
-                        <!-- REEMPLAZA LA URL DE LA IMAGEN AQUÍ -->
-                        <img src="https://github.com/user-attachments/assets/c7fb20b3-51f1-4b9a-9574-4f117ed4fa09" alt="App 3" class="project-image">
+            <!-- Proyectos -->
+            <section class="py-12">
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8" id="projectsHeading">Proyectos Destacados</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Proyecto 1 -->
+                    <div class="bg-white dark:bg-[#1c1c1e] rounded-2xl overflow-hidden border border-[#e8e8ed] dark:border-[#2c2c2e] shadow-sm transition-all duration-300 flex flex-col justify-between group">
+                        <div class="overflow-hidden bg-neutral-200 dark:bg-neutral-900 aspect-video relative">
+                            <img id="img-p1"
+                                src="img/proyecto1-claro.png"
+                                data-light="img/proyecto1-claro.png"
+                                data-dark="img/proyecto1-oscuro.png"
+                                alt="Proyecto Finanzas Nativas"
+                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 project-title-1">TrackFit</h3>
+                                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4 project-desc-1">
+                                Aplicación avanzada de fitness con métricas en tiempo real y sincronización completa con Apple Watch utilizando HealthKit.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">SwiftUI</span>
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">HealthKit</span>
+                                </div>
+                                <a href="#" class="text-apple-accent text-sm font-semibold hover:underline flex items-center gap-1 repoLink">
+                                    Ver Repositorio <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <h3 id="p3-title">SwiftPokeDex</h3>
-                    <p id="p3-desc">Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI. Está diseñada bajo estándares de calidad de producción, empleando conceptos avanzados como concurrencia nativa, persistencia local reactiva y un conjunto integral de pruebas automatizadas modernas.</p>
-                    <div class="tags">
-                        <span class="tag">SwiftUI</span>
-                        <span class="tag">MVVM</span>
-                        <span class="tag">Combine</span>
-                        <span class="tag">Async/await</span>
-                        <span class="tag">SwiftData</span>
-                        <span class="tag">URLSession</span>
-                        <span class="tag">SwiftCharts</span>
+                    
+                    <!-- Proyecto 2 -->
+                    <div class="bg-white dark:bg-[#1c1c1e] rounded-2xl overflow-hidden border border-[#e8e8ed] dark:border-[#2c2c2e] shadow-sm transition-all duration-300 flex flex-col justify-between group">
+                        <div class="overflow-hidden bg-neutral-200 dark:bg-neutral-900 aspect-video relative">
+                            <img id="img-p2"
+                                src="img/proyecto2-claro.png"
+                                data-light="img/proyecto2-claro.png"
+                                data-dark="img/proyecto2-oscuro.png"
+                                alt="Proyecto App del Clima"
+                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 project-title-2">FinanceFlow</h3>
+                                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4 project-desc-2">
+                                Gestor de finanzas personales enfocado en la privacidad con SwiftData, gráficos interactivos integrados y widgets para iOS 17+.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">SwiftData</span>
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">Charts</span>
+                                </div>
+                                <a href="#" class="text-apple-accent text-sm font-semibold hover:underline flex items-center gap-1 repoLink">
+                                    Ver Repositorio <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <!-- Proyecto 3 -->
+                    <div class="bg-white dark:bg-[#1c1c1e] rounded-2xl overflow-hidden border border-[#e8e8ed] dark:border-[#2c2c2e] shadow-sm transition-all duration-300 flex flex-col justify-between group">
+                        <div class="overflow-hidden bg-neutral-200 dark:bg-neutral-900 aspect-video relative">
+                            <img id="img-p3"
+                                src="img/proyecto3-claro.png"
+                                data-light="img/proyecto3-claro.png"
+                                data-dark="img/proyecto3-oscuro.png"
+                                alt="Proyecto Tareas"
+                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 project-title-3">CinemaSphere</h3>
+                                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4 project-desc-3">
+                                Cliente API de películas que implementa arquitectura MVVM limpia, caché local, búsqueda predictiva y soporte completo fuera de línea.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap gap-1.5 mb-4">
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">UIKit</span>
+                                    <span class="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-xs rounded text-zinc-500 dark:text-zinc-400">Combine</span>
+                                </div>
+                                <a href="#" class="text-apple-accent text-sm font-semibold hover:underline flex items-center gap-1 repoLink">
+                                    Ver Repositorio <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
-                <a href="https://github.com/usabalza/SwiftPokeDex" target="_blank" class="card-link" id="p3-link">Ver Repositorio &rarr;</a>
-            </div>
+            </section>
+            
+            <!-- Contacto -->
+            <section class="py-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
+                <h2 class="text-2xl font-bold tracking-tight mb-4" id="contactHeading">Hablemos</h2>
+                <p class="text-zinc-600 dark:text-zinc-400 mb-8 max-w-md mx-auto id-contactDesc">
+                ¿Tienes un proyecto en mente o quieres colaborar en alguna app? ¡Escríbeme!
+                </p>
+                <div class="flex justify-center gap-6">
+                    <a href="mailto:tuemail@example.com" class="flex items-center gap-2 text-zinc-600 hover:text-apple-accent dark:text-zinc-400 dark:hover:text-apple-accent transition font-medium">
+                        <i data-lucide="mail" class="w-5 h-5"></i> Email
+                    </a>
+                    <a href="https://github.com" target="_blank" class="flex items-center gap-2 text-zinc-600 hover:text-apple-accent dark:text-zinc-400 dark:hover:text-apple-accent transition font-medium">
+                        <i data-lucide="github" class="w-5 h-5"></i> GitHub
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="flex items-center gap-2 text-zinc-600 hover:text-apple-accent dark:text-zinc-400 dark:hover:text-apple-accent transition font-medium">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn
+                    </a>
+                </div>
+            </section>
         </main>
         
-        <section class="contact">
-            <h2 id="contact-title">Contacto</h2>
-            <div class="contact-links">
-                <a href="mailto:uziel.sabalza.dev@gmail.com" target="_blank">Email</a>
-                <a href="https://github.com/usabalza" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/uziel-sabalza-a535b6214" target="_blank">LinkedIn</a>
-            </div>
-        </section>
+        <!-- Footer -->
+        <footer class="bg-zinc-100 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-900 py-6 text-center text-xs text-zinc-500">
+            <p>&copy; 2026 iOS Developer Portfolio. All rights reserved.</p>
+        </footer>
         
+        <!-- Localización y Lógica de Toggles -->
         <script>
-            const themeToggle = document.getElementById('theme-toggle');
-            const langToggle = document.getElementById('lang-toggle');
+            // Inicializar Lucide Icons
+            lucide.createIcons();
             
-            let currentLang = 'es';
-            
-            const content = {
-                es: {
-                    heroTitle: 'Hola, soy un Desarrollador iOS',
-                    heroSubtitle: 'Construyendo experiencias nativas elegantes y de alto rendimiento.',
-                    heroDesc: 'Me dedico a diseñar y programar aplicaciones móviles intuitivas para el ecosistema Apple, priorizando la arquitectura limpia, transiciones fluidas y un diseño centrado en el usuario.',
-                    projectsTitle: 'Mis Proyectos',
-                    contactTitle: 'Contacto',
-                    p1Title: 'WalletDemo',
-                    p1Desc: 'Una aplicación que simula un ecosistema de billetera digital totalmente local. El proyecto se desarrolló utilizando un enfoque altamente modular y desacoplado, eliminando las dependencias de API externas mediante el uso de SwiftData para todo el almacenamiento de datos persistentes y la gestión de relaciones locales.',
-                    p1Link: 'Ver Repositorio →',
-                    p2Title: 'CryptoTracker',
-                    p2Desc: 'Una aplicación diseñada para realizar un seguimiento de las criptomonedas favoritas en tiempo real. El proyecto implementa el monitoreo de carteras en vivo, simulaciones de operaciones locales y una estrategia sólida para gestionar las limitaciones de tasa de solicitudes de la API.',
-                    p2Link: 'Ver Repositorio →',
-                    p3Title: 'SwiftPokeDex',
-                    p3Desc: 'Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI. Está diseñada bajo estándares de calidad de producción, empleando conceptos avanzados como concurrencia nativa, persistencia local reactiva y un conjunto integral de pruebas automatizadas modernas.',
-                    p3Link: 'Ver Repositorio →',
-                    langBtn: 'English'
+            // Estado e Idiomas
+            let currentLang = 'ES';
+            const translations = {
+                ES: {
+                    heroTitle: "Diseño experiencias nativas e intuitivas para el ecosistema Apple.",
+                    heroDesc: "Soy un desarrollador enfocado en la arquitectura limpia, interfaces fluidas y un rendimiento excepcional en iOS, iPadOS y watchOS.",
+                    projectsHeading: "Proyectos Destacados",
+                    contactHeading: "Hablemos",
+                    contactDesc: "¿Tienes un proyecto en mente o quieres colaborar en alguna app? ¡Escríbeme!",
+                    repoLink: "Ver Repositorio",
+                    p1Title: "TrackFit",
+                    p1Desc: "Aplicación avanzada de fitness con métricas en tiempo real y sincronización completa con Apple Watch utilizando HealthKit.",
+                    p2Title: "FinanceFlow",
+                    p2Desc: "Gestor de finanzas personales enfocado en la privacidad con SwiftData, gráficos interactivos integrados y widgets para iOS 17+.",
+                    p3Title: "CinemaSphere",
+                    p3Desc: "Cliente API de películas que implementa arquitectura MVVM limpia, caché local, búsqueda predictiva y soporte completo fuera de línea."
                 },
-                en: {
-                    heroTitle: 'Hi, Im a iOS Developer',
-                    heroSubtitle: 'Building elegant, high-performance native experiences.',
-                    heroDesc: 'I design and develop intuitive mobile applications for the Apple ecosystem, prioritizing clean architecture, smooth transitions, and user-centered design.',
-                    projectsTitle: 'My Projects',
-                    contactTitle: 'Contact',
-                    p1Title: 'WalletDemo',
-                    p1Desc: 'Application simulating a fully local digital wallet ecosystem. The project was built using a highly modular and decoupled approach, eliminating external API dependencies by leveraging SwiftData for all persistent data storage and local relationship management.',
-                    p1Link: 'View Repository →',
-                    p2Title: 'CryptoTracker',
-                    p2Desc: 'Application built to track favorite cryptocurrencies in real-time. The project implements live portfolio tracking, local trade simulations, and a robust defense strategy against API rate limiting.',
-                    p2Link: 'View Repository →',
-                    p3Title: 'SwiftPokeDex',
-                    p3Desc: 'Application serving as an interactive Pokédex that consumes the PokeAPI. It is designed to production-grade standards, employing advanced concepts such as native concurrency, reactive local persistence, and a comprehensive suite of modern automated tests.',
-                    p3Link: 'View Repository →',
-                    langBtn: 'Español'
+                EN: {
+                    heroTitle: "Designing native and intuitive experiences for the Apple ecosystem.",
+                    heroDesc: "I am a developer focused on clean architecture, fluid interfaces, and exceptional performance on iOS, iPadOS, and watchOS.",
+                    projectsHeading: "Featured Projects",
+                    contactHeading: "Let's Talk",
+                    contactDesc: "Have a project in mind or want to collaborate on an app? Drop me a line!",
+                    repoLink: "View Repository",
+                    p1Title: "TrackFit",
+                    p1Desc: "Advanced fitness app with real-time metrics and full Apple Watch synchronization via HealthKit.",
+                    p2Title: "FinanceFlow",
+                    p2Desc: "Privacy-focused personal finance manager using SwiftData, built-in interactive charts, and iOS 17+ widgets.",
+                    p3Title: "CinemaSphere",
+                    p3Desc: "Movie API client implementing clean MVVM architecture, local caching, predictive search, and full offline support."
                 }
             };
             
-            // Theme Toggle Logic
-            themeToggle.addEventListener('click', () => {
-                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                if (isDark) {
-                    document.documentElement.removeAttribute('data-theme');
-                    themeToggle.textContent = '🌙 Dark';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    themeToggle.textContent = '☀️ Light';
-                }
-            });
-            
-            // Language Toggle Logic
-            langToggle.addEventListener('click', () => {
-                currentLang = currentLang === 'es' ? 'en' : 'es';
-                updateLanguage();
-            });
-            
-            function updateLanguage() {
-                const langData = content[currentLang];
-                document.getElementById('hero-title').textContent = langData.heroTitle;
-                document.getElementById('hero-subtitle').textContent = langData.heroSubtitle;
-                document.getElementById('hero-desc').textContent = langData.heroDesc;
-                document.getElementById('projects-title').textContent = langData.projectsTitle;
-                document.getElementById('contact-title').textContent = langData.contactTitle;
+            const langToggle = document.getElementById('langToggle');
+            function updateLanguage(lang) {
+                currentLang = lang;
+                langToggle.textContent = lang === 'ES' ? 'EN' : 'ES'; // Muestra el siguiente idioma disponible
                 
-                document.getElementById('p1-title').textContent = langData.p1Title;
-                document.getElementById('p1-desc').textContent = langData.p1Desc;
-                document.getElementById('p1-link').textContent = langData.p1Link;
+                document.getElementById('heroTitle').textContent = translations[lang].heroTitle;
+                document.getElementById('heroDesc').textContent = translations[lang].heroDesc;
+                document.getElementById('projectsHeading').textContent = translations[lang].projectsHeading;
+                document.getElementById('contactHeading').textContent = translations[lang].contactHeading;
                 
-                document.getElementById('p2-title').textContent = langData.p2Title;
-                document.getElementById('p2-desc').textContent = langData.p2Desc;
-                document.getElementById('p2-link').textContent = langData.p2Link;
+                document.querySelector('.project-title-1').textContent = translations[lang].p1Title;
+                document.querySelector('.project-desc-1').textContent = translations[lang].p1Desc;
+                document.querySelector('.project-title-2').textContent = translations[lang].p2Title;
+                document.querySelector('.project-desc-2').textContent = translations[lang].p2Desc;
+                document.querySelector('.project-title-3').textContent = translations[lang].p3Title;
+                document.querySelector('.project-desc-3').textContent = translations[lang].p3Desc;
                 
-                document.getElementById('p3-title').textContent = langData.p3Title;
-                document.getElementById('p3-desc').textContent = langData.p3Desc;
-                document.getElementById('p3-link').textContent = langData.p3Link;
-                
-                langToggle.textContent = langData.langBtn;
-                document.documentElement.lang = currentLang;
+                document.querySelectorAll('.repoLink').forEach(el => {
+                    el.innerHTML = `${translations[lang].repoLink} <i data-lucide="arrow-up-right" class="w-3 h-3"></i>`;
+                });
+                lucide.createIcons();
             }
+            
+            langToggle.addEventListener('click', () => {
+                updateLanguage(currentLang === 'ES' ? 'EN' : 'ES');
+            });
+            
+            // Lógica de Tema Claro/Oscuro e imágenes dinámicas
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const html = document.documentElement;
+            
+            function updateImagesForTheme(isDark) {
+                const projectImages = [
+                                       document.getElementById('img-p1'),
+                                       document.getElementById('img-p2'),
+                                       document.getElementById('img-p3')
+                                       ];
+                                       
+                                       projectImages.forEach(img => {
+                                           if (img) {
+                                               // Extrae la ruta correcta guardada en los atributos data
+                                               const targetSrc = isDark ? img.getAttribute('data-dark') : img.getAttribute('data-light');
+                                               if (targetSrc) {
+                                                   img.src = targetSrc;
+                                               }
+                                           }
+                                       });
+            }
+            
+            // Inicializar imágenes en modo dark por defecto según la estructura
+            //updateProjectImages('dark');
+            updateImagesForTheme(true)
+            updateLanguage('ES');
         </script>
     </body>
 </html>
