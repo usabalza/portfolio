@@ -199,7 +199,7 @@ Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI.
             <!-- Contacto -->
             <section class="py-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
                 <h2 class="text-2xl font-bold tracking-tight mb-4" id="contactHeading">Hablemos</h2>
-                <p class="text-zinc-600 dark:text-zinc-400 mb-8 max-w-md mx-auto contactDesc">
+                <p class="text-zinc-600 dark:text-zinc-400 mb-8 max-w-md mx-auto" id="contactDesc">
                 ¿Tienes un proyecto en mente o quieres colaborar en alguna app? ¡Escríbeme!
                 </p>
                 <div class="flex justify-center gap-6">
@@ -268,7 +268,7 @@ Una aplicación que funciona como una Pokédex interactiva y consume la PokeAPI.
                 document.getElementById('heroDesc').textContent = translations[lang].heroDesc;
                 document.getElementById('projectsHeading').textContent = translations[lang].projectsHeading;
                 document.getElementById('contactHeading').textContent = translations[lang].contactHeading;
-                
+                document.getElementById('contactDesc').textContent = translations[lang].contactDesc;
                 document.querySelector('.project-title-1').textContent = translations[lang].p1Title;
                 document.querySelector('.project-desc-1').textContent = translations[lang].p1Desc;
                 document.querySelector('.project-title-2').textContent = translations[lang].p2Title;
