@@ -296,6 +296,19 @@
                                            }
                                        });
             }
+
+            themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.setAttribute('data-lucide', 'sun');
+                updateImagesForTheme(true);
+            } else {
+                html.classList.add('dark');
+                themeIcon.setAttribute('data-lucide', 'moon');
+                updateImagesForTheme(false);
+            }
+            lucide.createIcons();
+        });
             
             // Inicializar imágenes en modo dark por defecto según la estructura
             //updateProjectImages('dark');
