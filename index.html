@@ -334,6 +334,20 @@ themeToggleBtn.addEventListener('click', () => {
             //updateProjectImages('dark');
             updateImagesForTheme(true)
             updateLanguage('ES');
+
+            window.addEventListener('DOMContentLoaded', () => {
+    const isDarkInitial = htmlElement.classList.contains('dark');
+    if(isDarkInitial) {
+        themeIcon.className = 'fas fa-moon text-amber-400'; // O cambia esto si también deseas usar Lucide en el Nav
+    } else {
+        themeIcon.className = 'fas fa-sun text-amber-500';
+    }
+    updateImagesForTheme(isDarkInitial);
+    updateLanguage();
+    
+    // NUEVO: Inicializa los iconos de Lucide
+    lucide.createIcons();
+});
         </script>
     </body>
 </html>
